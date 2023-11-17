@@ -125,8 +125,7 @@ def enter_boardsize():
                     options()  
             if (event.type == pygame_gui.UI_TEXT_ENTRY_FINISHED and
                 event.ui_object_id == '#main_text_entry'):
-                Board.COL_COUNT = int(event.text)
-                Board.ROW_COUNT = int(event.text)
+                Start.board_size = int(event.text)
                 options()
             manager.process_events(event)
         
