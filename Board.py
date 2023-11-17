@@ -6,10 +6,7 @@ COL_COUNT = 15
 
 # define screen size
 BLOCKSIZE = 50 # individual grid
-S_WIDTH = COL_COUNT * BLOCKSIZE # screen width
-S_HEIGHT = ROW_COUNT * BLOCKSIZE # screen height
 PADDING_RIGHT = 200 # for game menu
-SCREENSIZE = (S_WIDTH + PADDING_RIGHT,S_HEIGHT)
 RADIUS = 20 # game piece radius
 
 # colors
@@ -23,7 +20,9 @@ def create_board(row, col):
     return board
 
 # draw a board in pygame window
-def draw_board(screen):
+def draw_board(screen, board_size):
+    S_WIDTH = board_size * BLOCKSIZE
+    S_HEIGHT = board_size * BLOCKSIZE
     for x in range(0,S_WIDTH,BLOCKSIZE):
         for y in range(0,S_HEIGHT,BLOCKSIZE):
             rect = pygame.Rect(x, y, BLOCKSIZE, BLOCKSIZE)
@@ -48,10 +47,10 @@ def drop_piece(board, row, col, piece):
     board[row][col] = piece
 
 # draw a piece on board
-def draw_piece(screen,board):
+def draw_piece(screen,board, board_size):
     # draw game pieces at mouse location
-    for x in range(COL_COUNT):
-        for y in range(ROW_COUNT):
+    for x in range(board_size):
+        for y in range(board_size):
             circle_pos = (x * BLOCKSIZE + BLOCKSIZE//2, y * BLOCKSIZE + BLOCKSIZE//2)
             if board[y][x] == 1:
                 pygame.draw.circle(screen, BLACK, circle_pos, RADIUS)
@@ -64,31 +63,31 @@ def is_valid_loc(board, row, col):
     return board[row][col] == 0
 
 # victory decision
-def who_wins(board, piece):
+def who_wins(board, piece, board_size):
     # check for horizontal win
-    for c in range(COL_COUNT - 4):
-        for r in range(ROW_COUNT):
+    for c in range(board_size - 4):
+        for r in range(board_size):
             if board[r][c] == piece and board[r][c+1] == piece and board[r][c+2] == piece and board[r][c+3] == piece\
                 and board[r][c+4] == piece:
                 return True
 
     # check for vertical win
-    for c in range(COL_COUNT):
-        for r in range(ROW_COUNT-4):
+    for c in range(board_size):
+        for r in range(board_size-4):
             if board[r][c] == piece and board[r+1][c] == piece and board[r+2][c] == piece and board[r+3][c] == piece\
                 and board[r+4][c] == piece:
                 return True
 
     # check for positively sloped diagonal wih
-    for c in range(COL_COUNT-4):
-        for r in range(4,ROW_COUNT):
+    for c in range(board_size-4):
+        for r in range(4,board_size):
             if board[r][c] == piece and board[r-1][c+1] == piece and board[r-2][c+2] == piece and board[r-3][c+3] == piece\
                 and board[r-4][c+4] == piece:
                 return True
 
     # check for negatively sloped diagonal win
-    for c in range(COL_COUNT-4):
-        for r in range(ROW_COUNT-4):
+    for c in range(board_size-4):
+        for r in range(board_size-4):
             if board[r][c] == piece and board[r+1][c+1] == piece and board[r+2][c+2] == piece and board[r+3][c+3] == piece\
                 and board[r+4][c+4] == piece:
                 return True
