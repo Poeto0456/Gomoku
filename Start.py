@@ -4,9 +4,9 @@ import sys
 import math
 import Board
 
-pygame.init()
+board_size = 15
 
-board_size = 3
+pygame.init()
 
 def main():
     # game variables
@@ -20,11 +20,11 @@ def main():
     frames_per_sec = pygame.time.Clock()
 
     # board 2D array
-    board = Board.create_board(Board.ROW_COUNT,Board.COL_COUNT)
+    board = Board.create_board(board_size, board_size)
     print(board)
 
     # game screen
-    SCREEN = pygame.display.set_mode(Board.SCREENSIZE)
+    SCREEN = pygame.display.set_mode((1280, 750))
     SCREEN.fill(Board.WHITE)
     pygame.display.set_caption('Gomoku (Connet 5)')
     # icon = pygame.image.load('icon.png')
@@ -38,7 +38,7 @@ def main():
     label_2 = my_font.render('White wins!', True, Board.WHITE, Board.BLACK)
 
     # display the screen
-    Board.draw_board(SCREEN)
+    Board.draw_board(SCREEN, board_size)
 
     # game loop
     while not game_over:
@@ -66,9 +66,9 @@ def main():
                     # check if its a valid location then drop a piece
                     if Board.is_valid_loc(board, row, col):
                         Board.drop_piece(board, row, col, piece_1)
-                        Board.draw_piece(SCREEN,board)
+                        Board.draw_piece(SCREEN,board, board_size)
 
-                        if Board.who_wins(board,piece_1):
+                        if Board.who_wins(board,piece_1, board_size):
                             print('Black wins!')
                             SCREEN.blit(label_1, (280,50))
                             pygame.display.update()
@@ -79,9 +79,9 @@ def main():
                     # check if its a valid location then drop a piece
                     if Board.is_valid_loc(board, row, col):
                         Board.drop_piece(board, row, col, piece_2)
-                        Board.draw_piece(SCREEN,board)
+                        Board.draw_piece(SCREEN,board, board_size)
 
-                        if Board.who_wins(board,piece_2):
+                        if Board.who_wins(board,piece_2, board_size):
                             print('White wins!')
                             SCREEN.blit(label_2, (280,50))
                             pygame.display.update()
