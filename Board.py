@@ -63,31 +63,58 @@ def is_valid_loc(board, row, col):
     return board[row][col] == 0
 
 # victory decision
-def who_wins(board, piece, board_size):
+def who_wins(board, piece, board_size, win_condition):
     # check for horizontal win
-    for c in range(board_size - 4):
+    for c in range(board_size - win_condition + 1):
         for r in range(board_size):
-            if board[r][c] == piece and board[r][c+1] == piece and board[r][c+2] == piece and board[r][c+3] == piece\
-                and board[r][c+4] == piece:
+            count = 0 # count the number of consecutive pieces
+            for i in range(win_condition):
+                if board[r][c+i] == piece:
+                    count += 1
+                else:
+                    break
+            if count == win_condition: # if the count reaches the win condition, return True
                 return True
 
     # check for vertical win
     for c in range(board_size):
-        for r in range(board_size-4):
-            if board[r][c] == piece and board[r+1][c] == piece and board[r+2][c] == piece and board[r+3][c] == piece\
-                and board[r+4][c] == piece:
+        for r in range(board_size - win_condition + 1):
+            count = 0
+            for i in range(win_condition):
+                if board[r+i][c] == piece:
+                    count += 1
+                else:
+                    break
+            if count == win_condition:
                 return True
 
-    # check for positively sloped diagonal wih
-    for c in range(board_size-4):
-        for r in range(4,board_size):
-            if board[r][c] == piece and board[r-1][c+1] == piece and board[r-2][c+2] == piece and board[r-3][c+3] == piece\
-                and board[r-4][c+4] == piece:
+    # check for positively sloped diagonal win
+    for c in range(board_size - win_condition + 1):
+        for r in range(win_condition - 1, board_size):
+            count = 0
+            for i in range(win_condition):
+                if board[r-i][c+i] == piece:
+                    count += 1
+                else:
+                    break
+            if count == win_condition:
                 return True
 
     # check for negatively sloped diagonal win
-    for c in range(board_size-4):
-        for r in range(board_size-4):
-            if board[r][c] == piece and board[r+1][c+1] == piece and board[r+2][c+2] == piece and board[r+3][c+3] == piece\
-                and board[r+4][c+4] == piece:
+    for c in range(board_size - win_condition + 1):
+        for r in range(board_size - win_condition + 1):
+            count = 0
+            for i in range(win_condition):
+                if board[r+i][c+i] == piece:
+                    count += 1
+                else:
+                    break
+            if count == win_condition:
                 return True
+
+    # check for draw
+    if np.count_nonzero(board) == board_size ** 2: #the board is full and no one wins
+        return "It's a draw!"
+
+    # otherwise, return False
+    return False
