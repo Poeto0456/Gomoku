@@ -63,7 +63,7 @@ def is_valid_loc(board, row, col):
     return board[row][col] == 0
 
 # victory decision
-def who_wins(board, piece, board_size, win_condition):
+def who_wins(board, piece, board_size, win_condition = 5):
     # check for horizontal win
     for c in range(board_size - win_condition + 1):
         for r in range(board_size):
@@ -114,7 +114,7 @@ def who_wins(board, piece, board_size, win_condition):
 
     # check for draw
     if np.count_nonzero(board) == board_size ** 2: #the board is full and no one wins
-        return "It's a draw!"
+        return None
 
     # otherwise
     return False
