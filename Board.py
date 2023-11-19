@@ -116,5 +116,5 @@ def who_wins(board, piece, board_size, win_condition):
     if np.count_nonzero(board) == board_size ** 2: #the board is full and no one wins
         return "It's a draw!"
 
-    # otherwise, return False
+    # otherwise
     return False
