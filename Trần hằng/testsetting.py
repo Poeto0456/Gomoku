@@ -24,6 +24,15 @@ text_input = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((580*
 
 clock = pygame.time.Clock()
 
+def toggle_audio(audio, playing, button, icon_playing, icon_paused):
+    if playing:
+        audio.stop()
+        button.image = icon_paused
+    else:
+        audio.play(-1)
+        button.image = icon_playing
+    return not playing
+
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("font.ttf", size)
 
@@ -196,9 +205,9 @@ def main_menu():
     pygame.mixer_music.set_volume(0.5)
     sound_click=pygame.mixer.Sound("click_sound.ogg")
     music_playing = True
+    sound_playing = True
     last_sound_play_time = pygame.time.get_ticks()
     while True:
-        
         SCREEN.blit(BG, (0, 0))
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
@@ -212,17 +221,25 @@ def main_menu():
                             text_input="OPTIONS", font=get_font(75*3//4), base_color="#d7fcd4", hovering_color="White")
         QUIT_BUTTON = Button(image=pygame.image.load("Quit Rect.png"), pos=(640*3//4, 550*3//4), 
                             text_input="QUIT", font=get_font(75*3//4), base_color="#d7fcd4", hovering_color="White")
-        music_icon_playing = pygame.image.load('speaker_4485513.png')
-        music_icon_playing = pygame.transform.scale(music_icon_playing,(50,50))
-        music_icon_paused = pygame.image.load('mute_4485473.png')
-        music_icon_paused = pygame.transform.scale(music_icon_paused,(50,50))
+        music_icon_playing = pygame.image.load('music_on.png')
+        music_icon_playing = pygame.transform.scale(music_icon_playing,(20,20))
+        music_icon_paused = pygame.image.load('mute_music.png')
+        music_icon_paused = pygame.transform.scale(music_icon_paused,(20,20))
         music_button_icon = music_icon_playing if music_playing else music_icon_paused
-        music_button = Button(image=music_button_icon, pos=(800,100),
+        music_button = Button(image=music_button_icon, pos=(800,150),
+                              text_input=None, font=get_font(75 * 3 // 4), base_color="#d7fcd4",
+                              hovering_color="White") 
+        sound_icon_playing = pygame.image.load('sound_on.png')
+        sound_icon_playing = pygame.transform.scale(sound_icon_playing,(20,20))
+        sound_icon_paused = pygame.image.load('mute_sound.png')
+        sound_icon_paused = pygame.transform.scale(sound_icon_paused,(20,20))
+        sound_button_icon = sound_icon_playing if sound_playing else sound_icon_paused
+        sound_button = Button(image=sound_button_icon, pos=(800,200),
                               text_input=None, font=get_font(75 * 3 // 4), base_color="#d7fcd4",
                               hovering_color="White") 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON, music_button]:
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON, music_button, sound_button]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
        
@@ -231,6 +248,16 @@ def main_menu():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                if sound_playing:
+                    sound_click.play()
+                if sound_button.checkForInput(MENU_MOUSE_POS):
+                    if sound_playing:
+                        sound_click.stop()
+                        sound_button.image = sound_icon_paused
+                    else:
+                        sound_click.play()
+                        sound_button.image = sound_icon_playing
+                    sound_playing = not sound_playing
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.mixer_music.stop()
                     play()
@@ -249,6 +276,7 @@ def main_menu():
                         pygame.mixer_music.play(-1)
                         music_button.image = music_icon_playing
                     music_playing = not music_playing
+                
         resizable_loop
         pygame.display.update()
 
