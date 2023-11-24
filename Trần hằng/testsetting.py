@@ -203,7 +203,7 @@ def main_menu():
     pygame.mixer_music.load('main_menu_music.ogg')
     pygame.mixer_music.play(-1)
     pygame.mixer_music.set_volume(0.5)
-    sound_click=pygame.mixer.Sound("click_sound.ogg")
+    sound_click=pygame.mixer.Sound("click_sound.wav")
     music_playing = True
     sound_playing = True
     last_sound_play_time = pygame.time.get_ticks()
@@ -248,17 +248,15 @@ def main_menu():
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if sound_playing:
-                    sound_click.play()
                 if sound_button.checkForInput(MENU_MOUSE_POS):
                     if sound_playing:
-                        sound_click.stop()
                         sound_button.image = sound_icon_paused
                     else:
-                        sound_click.play()
                         sound_button.image = sound_icon_playing
                     sound_playing = not sound_playing
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    if sound_playing:
+                        sound_click.play()
                     pygame.mixer_music.stop()
                     play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
