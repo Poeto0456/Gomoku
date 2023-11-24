@@ -24,6 +24,9 @@ text_input = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((580*
 
 clock = pygame.time.Clock()
 
+music_playing = True
+sound_playing = True
+
 def toggle_audio(audio, playing, button, icon_playing, icon_paused):
     if playing:
         audio.stop()
@@ -204,8 +207,8 @@ def main_menu():
     pygame.mixer_music.play(-1)
     pygame.mixer_music.set_volume(0.5)
     sound_click=pygame.mixer.Sound("click_sound.wav")
-    music_playing = True
-    sound_playing = True
+    global music_playing
+    global sound_playing
     last_sound_play_time = pygame.time.get_ticks()
     while True:
         SCREEN.blit(BG, (0, 0))
@@ -260,6 +263,8 @@ def main_menu():
                     pygame.mixer_music.stop()
                     play()
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    if sound_playing:
+                        sound_click.play()
                     pygame.mixer_music.stop()
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
