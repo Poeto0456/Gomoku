@@ -117,10 +117,10 @@ def main():
                 elif music_button.checkForInput(mouse_pos):
                     print('music presses')
                     if music_playing:
-                        pygame.mixer_music.stop()
+                        pygame.mixer_music.pause()
                         music_button.image = music_icon_paused
                     else:
-                        pygame.mixer_music.play(-1)
+                        pygame.mixer_music.unpause
                         music_button.image = music_icon_playing
                     music_playing = not music_playing
                 else:
