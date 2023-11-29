@@ -31,10 +31,7 @@ class AI_MCTS():
         self.run(board, self.search_times, running_output_function, is_stop=is_stop)
         action, _ = self.root.choose_best_child(0)
         board.step(action)
-
-        if self.is_output_analysis:
-            self.output_analysis()
-
+        
         if is_output_action:
             print("AI player {0} moves ({1}, {2})".format(self.name, action[0], action[1]))
 
@@ -77,7 +74,6 @@ class AI_MCTS():
         if is_over:
             return node
 
-        # 扩展所有子节点。 Expand all child node.
         actions = board.available_actions
         probs = np.ones(len(actions)) / len(actions)
 
@@ -94,7 +90,6 @@ class AI_MCTS():
             is_over, winner = board.result()
             if is_over:
                 break
-            # 决策下一步。 Decision making next step.
             self.rollout_policy(board)
         return winner
 
@@ -103,8 +98,6 @@ class AI_MCTS():
         Decision function, random decision here.
         """
 
-        # 随机执行动作。 Randomly execute actions.
         action = random.choice(list(board.available_actions))
 
-        # 执行。 Action.
         board.step(action)
