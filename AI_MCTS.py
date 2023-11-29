@@ -11,24 +11,22 @@ import time
 
 class AI_MCTS():
 
-    def __init__(self, name="AI_MCTS", search_times=10000, greedy_value=5.0,
-                 is_output_analysis=True, is_output_running=True):
+    def __init__(self, name="AI_MCTS", search_times=10000, greedy_value=5.0, is_output_running=True):
         self.root = None
         self.name = name
         self.search_times = search_times  
         self.greedy_value = greedy_value  
-        self.is_output_analysis = is_output_analysis  
         self.is_output_running = is_output_running  
 
     def reset(self):
         self.root = TreeNode(prior_prob=1.0)
 
-    def take_action(self, board: Board, is_output_action=True, running_output_function=None, is_stop=None):
+    def take_action(self, board: Board, is_output_action=True, running_output_function=None):
         if is_output_action:
             print("...Thinking...")
 
         self.reset()
-        self.run(board, self.search_times, running_output_function, is_stop=is_stop)
+        self.run(board, self.search_times, running_output_function)
         action, _ = self.root.choose_best_child(0)
         board.step(action)
         
@@ -37,7 +35,7 @@ class AI_MCTS():
 
         return action
 
-    def run(self, start_board: Board, times, running_output_function=None, is_stop=None):
+    def run(self, start_board: Board, times, running_output_function=None):
         for i in range(times):
             board = copy.deepcopy(start_board)
             if i % 50 == 0 and running_output_function is not None:
