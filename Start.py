@@ -27,7 +27,7 @@ def main():
     piece_1 = 1 # black
     piece_2 = -1 # white
 
-    AI = AI_MCTS.AI_MCTS(is_output_analysis = True)
+    AI = AI_MCTS.AI_MCTS()
 
     # FPS
     FPS = 60
