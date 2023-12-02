@@ -74,11 +74,14 @@ def main():
                     dr.draw_piece(SCREEN, board.board, board_size)
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    x_pos = event.pos[0]
-                    y_pos = event.pos[1]
+                    offset_x = (SCREEN.get_width() - dr.S_WIDTH) // 2
+                    offset_y = (SCREEN.get_height() - dr.S_HEIGHT) // 2
 
-                    col = int(math.floor(x_pos / dr.BLOCKSIZE))
-                    row = int(math.floor(y_pos / dr.BLOCKSIZE))
+                    x_pos_adjusted = x_pos - offset_x
+                    y_pos_adjusted = y_pos - offset_y
+
+                    col = int(math.floor(x_pos_adjusted  / dr.BLOCKSIZE))
+                    row = int(math.floor(y_pos_adjusted / dr.BLOCKSIZE))
 
                     # turn decision, if black(1)/white(2) piece already placed, go back to the previous turn
                     if board.board[row][col] == 1:
