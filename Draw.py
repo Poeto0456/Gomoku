@@ -20,25 +20,32 @@ def create_board(row, col):
 
 # draw a board in pygame window
 def draw_board(screen, board_size):
+    global BLOCKSIZE,S_HEIGHT,S_WIDTH,start_x,start_y
+    BLOCKSIZE = screen.get_height() // board_size
     S_WIDTH = board_size * BLOCKSIZE
     S_HEIGHT = board_size * BLOCKSIZE
-    for x in range(0,S_WIDTH,BLOCKSIZE):
-        for y in range(0,S_HEIGHT,BLOCKSIZE):
+    start_x = (screen.get_width() - S_WIDTH) // 2
+    start_y = (screen.get_height() - S_HEIGHT) // 2
+
+    for x in range(start_x, S_WIDTH + start_x, BLOCKSIZE):
+        for y in range(start_y, S_HEIGHT + start_y, BLOCKSIZE):
             rect = pygame.Rect(x, y, BLOCKSIZE, BLOCKSIZE)
-            pygame.draw.rect(screen,BROWN,rect)
+            pygame.draw.rect(screen, BROWN, rect)
 
     # draw inner grid lines
     # draw vertical lines
-    for x in range(BLOCKSIZE // 2, S_WIDTH - BLOCKSIZE // 2 + BLOCKSIZE, BLOCKSIZE):
-        line_start = (x, BLOCKSIZE // 2)
-        line_end = (x,S_HEIGHT-BLOCKSIZE // 2)
-        pygame.draw.line(screen, BLACK, line_start,line_end,2)
-
+    for x in range(start_x + BLOCKSIZE // 2, 
+                    S_WIDTH + start_x - BLOCKSIZE // 2 + BLOCKSIZE, BLOCKSIZE):
+                line_start = (x, start_y + BLOCKSIZE // 2)
+                line_end = (x, start_y + S_HEIGHT - BLOCKSIZE // 2)
+                pygame.draw.line(screen, BLACK, line_start, line_end, 2)
     # draw horizontal lines
-    for y in range(BLOCKSIZE // 2, S_HEIGHT - BLOCKSIZE // 2 + BLOCKSIZE, BLOCKSIZE):
-        line_start = (BLOCKSIZE // 2,y)
-        line_end = (S_WIDTH-BLOCKSIZE // 2,y)
-        pygame.draw.line(screen, BLACK, line_start,line_end,2)
+    for y in range(start_y + BLOCKSIZE // 2, 
+                   S_HEIGHT + start_y - BLOCKSIZE // 2 + BLOCKSIZE , BLOCKSIZE):
+        line_start = (start_x + BLOCKSIZE // 2, y)
+        line_end = (start_x + S_WIDTH - BLOCKSIZE // 2, y)
+        pygame.draw.line(screen, BLACK, line_start, line_end, 2)
+
     pygame.display.update()
 
 # drop a piece
@@ -50,9 +57,10 @@ def draw_piece(screen,board, board_size):
     # draw game pieces at mouse location
     for x in range(board_size):
         for y in range(board_size):
-            circle_pos = (x * BLOCKSIZE + BLOCKSIZE//2, y * BLOCKSIZE + BLOCKSIZE//2)
+            circle_pos = (start_x+ x* BLOCKSIZE  + BLOCKSIZE // 2, 
+                          start_y+ y* BLOCKSIZE + BLOCKSIZE // 2)
             if board[y][x] == 1:
-                pygame.draw.circle(screen, BLACK, circle_pos, RADIUS)
+                pygame.draw.circle(screen, BLACK, circle_pos, RADIUS * (BLOCKSIZE//40))
             elif board[y][x] == -1:
-                pygame.draw.circle(screen, WHITE, circle_pos, RADIUS)
+                pygame.draw.circle(screen, WHITE, circle_pos, RADIUS * (BLOCKSIZE//40))
     pygame.display.update()
