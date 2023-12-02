@@ -157,8 +157,14 @@ def main():
                     x_pos = event.pos[0]
                     y_pos = event.pos[1]
 
-                    col = int(math.floor(x_pos / dr.BLOCKSIZE))
-                    row = int(math.floor(y_pos / dr.BLOCKSIZE))
+                    offset_x = (SCREEN.get_width() - dr.S_WIDTH) // 2
+                    offset_y = (SCREEN.get_height() - dr.S_HEIGHT) // 2
+
+                    x_pos_adjusted = x_pos - offset_x
+                    y_pos_adjusted = y_pos - offset_y
+
+                    col = int(math.floor(x_pos_adjusted  / dr.BLOCKSIZE))
+                    row = int(math.floor(y_pos_adjusted / dr.BLOCKSIZE))
 
                     # turn decision, if black(1)/white(-1) piece already placed, go back to the previous turn
 
