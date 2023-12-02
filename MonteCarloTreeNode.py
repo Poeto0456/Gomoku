@@ -18,7 +18,6 @@ class TreeNode(object):
         Nếu như cái action đã có tức child node đã được expand thì trả về child node luôn còn k thì tạo child_node là 1 cái
         node mới rồi add nó vào dict
         """
-        # 如果已经扩展过了（一般不可能）。 If it has been extended (generally impossible).
         if action in self.children:
             return self.children[action]
 
