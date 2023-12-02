@@ -74,6 +74,8 @@ def main():
                     dr.draw_piece(SCREEN, board.board, board_size)
 
                 elif event.type == pygame.MOUSEBUTTONDOWN:
+                    x_pos = event.pos[0]
+                    y_pos = event.pos[1]
                     offset_x = (SCREEN.get_width() - dr.S_WIDTH) // 2
                     offset_y = (SCREEN.get_height() - dr.S_HEIGHT) // 2
 
