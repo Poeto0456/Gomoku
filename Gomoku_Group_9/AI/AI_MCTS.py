@@ -21,12 +21,12 @@ class AI_MCTS():
     def reset(self):
         self.root = TreeNode(prior_prob=1.0)
 
-    def take_action(self, board: Board, is_output_action=True, running_output_function=None):
+    def take_action(self, board: Board, is_output_action=True):
         if is_output_action:
             print("...Thinking...")
 
         self.reset()
-        self.run(board, self.search_times, running_output_function)
+        self.run(board, self.search_times)
         action, _ = self.root.choose_best_child(0)
         board.step(action)
         
@@ -35,7 +35,7 @@ class AI_MCTS():
 
         return action
 
-    def run(self, start_board: Board, times, running_output_function=None):
+    def run(self, start_board: Board, times):
         for i in range(times):
             board = copy.deepcopy(start_board)
             print("\rrunning: {} / {}".format(i, times), end="")
