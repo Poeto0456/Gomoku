@@ -13,11 +13,6 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 BROWN = (205,128,0)
 
-# create a board array
-def create_board(row, col):
-    board = np.zeros((row,col))
-    return board
-
 # draw a board in pygame window
 def draw_board(screen, board_size):
     global BLOCKSIZE,S_HEIGHT,S_WIDTH,start_x,start_y
