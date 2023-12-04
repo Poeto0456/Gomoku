@@ -215,9 +215,10 @@ def enter_wincondition():
 
 def main_menu():
     pygame.mixer_music.load('mainmenu.mp3')
-    pygame.mixer_music.play(-1)
     global music_playing
     global sound_playing
+    if music_playing:    
+        pygame.mixer_music.play(-1)
     while True:
         SCREEN.blit(BG, (0, 0))
 
