@@ -141,6 +141,7 @@ def main():
 
                     if game_over:
                         pygame.mixer_music.stop()
+                        pygame.mixer_music.unload()
                         pygame.time.wait(4000)
 
             frames_per_sec.tick(FPS)
@@ -186,6 +187,7 @@ def main():
                             pygame.display.update()
                             game_over = True
                             pygame.mixer_music.stop()
+                            pygame.mixer_music.unload()
                             pygame.time.wait(4000)
                             break
                         elif board.result() == (True, 0):
@@ -193,6 +195,7 @@ def main():
                             pygame.display.update()
                             game_over = True
                             pygame.mixer_music.stop()
+                            pygame.mixer_music.unload()
                             pygame.time.wait(4000)
                             break
  
@@ -215,6 +218,7 @@ def main():
 
                 if game_over:
                     pygame.mixer_music.stop()
+                    pygame.mixer_music.unload()
                     pygame.time.wait(4000)
 
             frames_per_sec.tick(FPS)
