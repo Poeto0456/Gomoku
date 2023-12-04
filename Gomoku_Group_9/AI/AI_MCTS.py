@@ -1,9 +1,11 @@
 import numpy as np
 import copy
 import random
+from Game.Board import Board
+from AI.MonteCarloTreeNode import TreeNode
 
-from Board import Board
-from MonteCarloTreeNode import TreeNode
+import time
+
 
 class AI_MCTS():
 
