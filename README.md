@@ -44,4 +44,3 @@ About the algorithm, **Omega_Gomoku_AI** refers to this article: [Monte Carlo Tr
 
 **Gomoku_Group_9** is licensed under MIT license. See [LICENSE](LICENSE) for details.
 
-## To be continued...
