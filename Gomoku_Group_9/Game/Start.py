@@ -1,22 +1,22 @@
 import pygame
 import sys
 import math
-
-import Draw as dr
-import AI_MCTS
-import Board
-from Button import Button
+sys.path.insert(0, "D:\DSEB\DSEB Sem 3\pyt\git\gomoku 1.3\Gomoku\Gomoku_Group_9")
+import Game.Draw as dr
+from AI.AI_MCTS import AI_MCTS
+import Game.Board as Board
+from Game.Button import Button
 
 pygame.init()
 
 AI_value = 0
 music_playing = True
 chess_playing = True
-chess_click=pygame.mixer.Sound("chess.mp3")
+chess_click=pygame.mixer.Sound("Sound/chess.mp3")
 
 def main():  
     pygame.mixer.pre_init(44100, -16, 2, 2048)
-    pygame.mixer_music.load('Tokyo.mp3')
+    pygame.mixer_music.load('Sound/Tokyo.mp3')
     pygame.mixer_music.play(-1)
     pygame.mixer_music.set_volume(0.3)
     board_size = Board.board_size
@@ -27,7 +27,7 @@ def main():
     piece_1 = 1 # black
     piece_2 = -1 # white
 
-    AI = AI_MCTS.AI_MCTS()
+    AI = AI_MCTS()
 
     # FPS
     FPS = 60
@@ -40,13 +40,13 @@ def main():
     # game screen
     SCREEN = pygame.display.set_mode((1280, 720))
     SCREEN.fill((211, 211, 211))
-    BG = pygame.image.load("Background.jpg")
+    BG = pygame.image.load("Image/Background.jpg")
     pygame.display.set_caption('Gomoku')
     SCREEN.blit(BG, (0,0))
             
     # font
-    my_font = pygame.font.Font('go3v2.ttf', 56)
-    my_font_escape = pygame.font.Font('go3v2.ttf', 25)
+    my_font = pygame.font.Font('Font/go3v2.ttf', 56)
+    my_font_escape = pygame.font.Font('Font/go3v2.ttf', 25)
 
     # text message
     label_1 = my_font.render('Black wins!', True, dr.WHITE, dr.BLACK)
@@ -236,19 +236,19 @@ def show_settings_menu(screen, board):
 
     # Settings menu buttons
     music_button = Button(image=None, pos=(640, 500), 
-                          text_input="MUSIC", font=pygame.font.Font("go3v2.ttf", 60), 
+                          text_input="MUSIC", font=pygame.font.Font("Font/go3v2.ttf", 60), 
                           base_color="White", hovering_color="Pink")
 
     sound_button = Button(image=None, pos=(640, 400), 
-                           text_input="SOUND", font=pygame.font.Font("go3v2.ttf", 60), 
+                           text_input="SOUND", font=pygame.font.Font("Font/go3v2.ttf", 60), 
                            base_color="White", hovering_color="Pink")
         
         # Win condition button
     restart_button = Button(image=None, pos=(640, 300), 
-                          text_input="RESTART", font=pygame.font.Font("go3v2.ttf", 60), 
+                          text_input="RESTART", font=pygame.font.Font("Font/go3v2.ttf", 60), 
                           base_color="White", hovering_color="Pink")
     quit_button = Button(image=None, pos=(640, 200), 
-                          text_input="QUIT", font=pygame.font.Font("go3v2.ttf", 60), 
+                          text_input="QUIT", font=pygame.font.Font("Font/go3v2.ttf", 60), 
                           base_color="White", hovering_color="Pink")
     while pause:
         mouse_pos = pygame.mouse.get_pos()
