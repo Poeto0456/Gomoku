@@ -56,7 +56,6 @@ class AI_MCTS():
                 value = -1
 
             node.backpropagate(-value)
-        print("\r                      ", end="\r")
 
     def traverse(self, node: TreeNode, board: Board):
         """
