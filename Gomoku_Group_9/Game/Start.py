@@ -61,6 +61,12 @@ def main():
     if AI_value == 0:
     # game loop
         while not game_over:
+            pause_message = my_font_escape.render('Press ESC to pause', True, dr.WHITE)
+            continue_message = my_font_escape.render('or continue', True, dr.WHITE)
+            SCREEN.blit(pause_message, (25, 100))
+            SCREEN.blit(continue_message, (65, 130))
+            SCREEN.blit(pause_message, (1025, 100))
+            SCREEN.blit(continue_message, (1065, 130))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -236,7 +242,9 @@ def show_settings_menu(screen, board):
     restart_button = Button(image=None, pos=(640, 300), 
                           text_input="RESTART", font=pygame.font.Font("go3v2.ttf", 60), 
                           base_color="White", hovering_color="Pink")
-    
+    quit_button = Button(image=None, pos=(640, 200), 
+                          text_input="QUIT", font=pygame.font.Font("go3v2.ttf", 60), 
+                          base_color="White", hovering_color="Pink")
     while pause:
         mouse_pos = pygame.mouse.get_pos()
         for event in pygame.event.get():
@@ -259,9 +267,11 @@ def show_settings_menu(screen, board):
                 elif restart_button.checkForInput(mouse_pos):
                     board.reset()
                     dr.draw_board(screen, Board.board_size)
-                    
+                elif quit_button.checkForInput(mouse_pos):
+                    pygame.quit()
+                    sys.exit()       
             
-        for button in [music_button, restart_button, sound_button]:
+        for button in [music_button, restart_button, sound_button, quit_button]:
             button.changeColor(mouse_pos)
             button.update(screen)
 
