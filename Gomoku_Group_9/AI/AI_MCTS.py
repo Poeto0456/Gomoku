@@ -4,10 +4,6 @@ import random
 
 from Board import Board
 from MonteCarloTreeNode import TreeNode
-import Board as BOARD
-
-import time
-
 
 class AI_MCTS():
 
