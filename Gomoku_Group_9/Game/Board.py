@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 sys.path.insert(0, "D:\DSEB\DSEB Sem 3\pyt\git\gomoku 1.3\Gomoku\Gomoku_Group_9")
 from Functions import coordinates_set
 
