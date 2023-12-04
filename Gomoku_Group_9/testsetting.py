@@ -1,18 +1,18 @@
 import pygame, sys, pygame_gui
-from Button import Button
+from Game.Button import Button
 from pygame.locals import *
-import Start
-import Board
+import Game.Start as Start
+import Game.Board as Board
 import sys
 
 pygame.init()
 
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
-icon_image = pygame.image.load("icon.png")
+icon_image = pygame.image.load("Image/icon.png")
 pygame.display.set_icon(icon_image)
 
-BG = pygame.image.load("Background.jpg")
+BG = pygame.image.load("Image/Background.jpg")
 
 clock = pygame.time.Clock()
 
@@ -20,13 +20,13 @@ clock = pygame.time.Clock()
 music_playing = True
 sound_playing = True
 pygame.mixer.pre_init(44100, -16, 2, 2048)
-pygame.mixer_music.load('mainmenu.mp3')
+pygame.mixer_music.load('Sound/mainmenu.mp3')
 pygame.mixer_music.play(-1)
 pygame.mixer_music.set_volume(1)
-sound_click=pygame.mixer.Sound("click_sound.wav")
+sound_click=pygame.mixer.Sound("Sound/click_sound.wav")
 
 def get_font(size): 
-    return pygame.font.Font("go3v2.ttf", size)
+    return pygame.font.Font("Font/go3v2.ttf", size)
 
 def play():
     global sound_playing
@@ -214,11 +214,10 @@ def enter_wincondition():
         pygame.display.update()            
 
 def main_menu():
-    pygame.mixer_music.load('mainmenu.mp3')
+    pygame.mixer_music.load('Sound/mainmenu.mp3')
+    pygame.mixer_music.play(-1)
     global music_playing
     global sound_playing
-    if music_playing:    
-        pygame.mixer_music.play(-1)
     while True:
         SCREEN.blit(BG, (0, 0))
 
@@ -227,25 +226,25 @@ def main_menu():
         MENU_TEXT = get_font(140).render("MAIN MENU", True, "LightBlue")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("Play Rect.png"), pos=(640, 250), 
+        PLAY_BUTTON = Button(image=pygame.image.load("Image/Play Rect.png"), pos=(640, 250), 
                             text_input="PLAY", font=get_font(100), base_color="White", hovering_color="Pink")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("Options Rect.png"), pos=(640, 400), 
+        OPTIONS_BUTTON = Button(image=pygame.image.load("image/Options Rect.png"), pos=(640, 400), 
                             text_input="OPTIONS", font=get_font(100), base_color="White", hovering_color="Pink")
-        QUIT_BUTTON = Button(image=pygame.image.load("Quit Rect.png"), pos=(640, 550), 
+        QUIT_BUTTON = Button(image=pygame.image.load("Image/Quit Rect.png"), pos=(640, 550), 
                             text_input="QUIT", font=get_font(100), base_color="White", hovering_color="Pink")
 
-        music_icon_playing = pygame.image.load('music_on.png')
+        music_icon_playing = pygame.image.load('Image/music_on.png')
         music_icon_playing = pygame.transform.scale(music_icon_playing,(50,50))
-        music_icon_paused = pygame.image.load('mute_music.png')
+        music_icon_paused = pygame.image.load('Image/mute_music.png')
         music_icon_paused = pygame.transform.scale(music_icon_paused,(50,50))
         music_button_icon = music_icon_playing if music_playing else music_icon_paused
         music_button = Button(image=music_button_icon, pos=(1200, 50),
                               text_input=None, font=get_font(60), base_color="#d7fcd4",
                               hovering_color="White") 
         
-        sound_icon_playing = pygame.image.load('sound_on.png')
+        sound_icon_playing = pygame.image.load('Image/sound_on.png')
         sound_icon_playing = pygame.transform.scale(sound_icon_playing,(50,50))
-        sound_icon_paused = pygame.image.load('mute_sound.png')
+        sound_icon_paused = pygame.image.load('Image/mute_sound.png')
         sound_icon_paused = pygame.transform.scale(sound_icon_paused,(50,50))
         sound_button_icon = sound_icon_playing if sound_playing else sound_icon_paused
         sound_button = Button(image=sound_button_icon, pos=(1200,120),
