@@ -46,6 +46,7 @@ def main():
             
     # font
     my_font = pygame.font.Font('go3v2.ttf', 56)
+    my_font_escape = pygame.font.Font('go3v2.ttf', 25)
 
     # text message
     label_1 = my_font.render('Black wins!', True, dr.WHITE, dr.BLACK)
