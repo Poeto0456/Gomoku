@@ -1,5 +1,4 @@
-
-[![Header](Image/header_readme.jpg)]
+![Header](Image/header_readme.jpg)
 
 # Gomoku_Group_9
 
