@@ -9,6 +9,8 @@ pygame.init()
 
 SCREEN = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
+icon_image = pygame.image.load("icon.png")
+pygame.display.set_icon(icon_image)
 
 BG = pygame.image.load("Background.jpg")
 
@@ -18,28 +20,27 @@ clock = pygame.time.Clock()
 music_playing = True
 sound_playing = True
 pygame.mixer.pre_init(44100, -16, 2, 2048)
-pygame.mixer_music.load('sound.mp3')
+pygame.mixer_music.load('mainmenu.mp3')
 pygame.mixer_music.play(-1)
-pygame.mixer_music.set_volume(0.5)
+pygame.mixer_music.set_volume(1)
 sound_click=pygame.mixer.Sound("click_sound.wav")
 
-def get_font(size): # Returns Press-Start-2P in the desired size
+def get_font(size): 
     return pygame.font.Font("go3v2.ttf", size)
 
 def play():
     global sound_playing
-    while True:
+    while True:      
         PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
         SCREEN.blit(BG, (0, 0))
 
         Human_button = Button(image=None, pos=(640, 400), 
-                           text_input="vs Human", font=get_font(60), 
+                           text_input="vs Human", font=get_font(70), 
                            base_color="White", hovering_color="Pink")
-        
-        # Win condition button
+
         AI_button = Button(image=None, pos=(640, 300), 
-                          text_input="vs AI", font=get_font(60), 
+                          text_input="vs AI", font=get_font(70), 
                           base_color="White", hovering_color="Pink")
 
         back_button = Button(image=None, pos=(640, 600), 
@@ -130,11 +131,11 @@ def enter_boardsize():
 
         UI_REFRESH_RATE = clock.tick(60)/1000
 
-        ENTER_TEXT = get_font(45).render("Enter the board size", True, "White")
+        ENTER_TEXT = get_font(65).render("Enter the board size", True, "White")
         ENTER_RECT = ENTER_TEXT.get_rect(center=(640, 260))
         SCREEN.blit(ENTER_TEXT, ENTER_RECT)
 
-        back_button = Button(image=None, pos=(640, 600), 
+        back_button = Button(image=None, pos=(630, 600), 
                             text_input="BACK", font=get_font(60), 
                             base_color="White", hovering_color="Pink")
 
@@ -168,7 +169,7 @@ def enter_wincondition():
     manager = pygame_gui.UIManager((1280, 720))
 
     win_input = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((580, 360), (100, 50)), manager=manager,
-                                               object_id='#main_text_entry2')
+                                               object_id='#main_text_entry')
     while True:
         WIN_MOUSE_POS = pygame.mouse.get_pos()
 
@@ -176,11 +177,11 @@ def enter_wincondition():
 
         UI_REFRESH_RATE = clock.tick(60)/1000 
 
-        ENTER_TEXT = get_font(45).render("Enter the win condition", True, "White")
+        ENTER_TEXT = get_font(65).render("Enter the win condition", True, "White")
         ENTER_RECT = ENTER_TEXT.get_rect(center=(640, 260))
         SCREEN.blit(ENTER_TEXT, ENTER_RECT)
 
-        back_button = Button(image=None, pos=(640, 600), 
+        back_button = Button(image=None, pos=(630, 600), 
                             text_input="BACK", font=get_font(60), 
                             base_color="White", hovering_color="Pink")
         
@@ -197,7 +198,7 @@ def enter_wincondition():
                         sound_click.play()
                     options()  
             if (event.type == pygame_gui.UI_TEXT_ENTRY_FINISHED and
-                event.ui_object_id == '#main_text_entry2'):
+                event.ui_object_id == '#main_text_entry'):
                 if sound_playing:
                     sound_click.play()
                 Board.n_in_a_row = int(event.text)
@@ -212,22 +213,17 @@ def enter_wincondition():
 
         pygame.display.update()            
 
-def play_background_music():
-    global music_playing
-    while music_playing:
-        pygame.mixer.music.play(-1)
-        pygame.time.delay(100)  # Đợi 0.1 giây giữa các vòng lặp để tránh tình trạng quá tải CPU
-
 def main_menu():
+    pygame.mixer_music.load('mainmenu.mp3')
+    pygame.mixer_music.play(-1)
     global music_playing
     global sound_playing
-    last_sound_play_time = pygame.time.get_ticks()
     while True:
         SCREEN.blit(BG, (0, 0))
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(140).render("MAIN MENU", True, "#b68f40")
+        MENU_TEXT = get_font(140).render("MAIN MENU", True, "LightBlue")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         PLAY_BUTTON = Button(image=pygame.image.load("Play Rect.png"), pos=(640, 250), 
