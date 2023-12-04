@@ -38,11 +38,7 @@ class AI_MCTS():
     def run(self, start_board: Board, times, running_output_function=None):
         for i in range(times):
             board = copy.deepcopy(start_board)
-            if i % 50 == 0 and running_output_function is not None:
-                running_output_function("{} / {}".format(i, times))
-                time.sleep(0.01)
-            if i % 20 == 0 and self.is_output_running:
-                print("\rrunning: {} / {}".format(i, times), end="")
+            print("\rrunning: {} / {}".format(i, times), end="")
 
             node = self.traverse(self.root, board)
             node_player = board.current_player
