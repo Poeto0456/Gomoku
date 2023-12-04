@@ -17,25 +17,23 @@ Enjoy yourself ~~~
 
 ## 👣 Next step
 
-✅ Monte Carlo tree -> ✅ Train models -> ✅ Visual game interface -> Custom battle.
+✅ Monte Carlo tree -> ✅ Visual game interface -> Custom battle.
 
 ## 📖 References & thanks
 
 About the algorithm, **Omega_Gomoku_AI** refers to this article: [Monte Carlo Tree Search – beginners guide](https://int8.io/monte-carlo-tree-search-beginners-guide/), written by [int8](https://github.com/int8).
 
-**Omega_Gomoku_AI** Inspired by [AlphaZero_Gomoku](https://github.com/junxiaosong/AlphaZero_Gomoku) and [tictactoe_mcts](https://github.com/zhuliquan/tictactoe_mcts).
-
 
 ## 🏠 Code structure
 
-- [testsettingy.py](Gomoku_Group_9/testsettingy.py) - Start the game, human vs AI, or human vs human, or AI vs AI.
+- [testsettingy.py](Gomoku_Group_9/testsettingy.py) - Start the game, human vs AI, or human vs human.
 - [Function.py](Gomoku_Group_9/Function.py) - Some functions.
 - [Game/](Gomoku_Group_9/Game/)
   - [Start.py](Gomoku_Group_9/Game/Start.py) - Start the game screen.
-  - [Draw.py](Gomoku_Group_9/Game/Draw.py) - Game board, including board rendering, execution and result determination.
-  - [Board.py](Gomoku_Group_9/Game/Board.py) - 
+  - [Draw.py](Gomoku_Group_9/Game/Draw.py) - Draw the game.
+  - [Board.py](Gomoku_Group_9/Game/Board.py) - Create board.
 - [AI/](Gomoku_Group_9/AI/)
-  - [AI_MCTS.py](Gomoku_Group_9/AI/AI_MCTS.py) - AI player with pure MCTS, implements class Player and MonteCarloTreeSearch.
+  - [AI_MCTS.py](Gomoku_Group_9/AI/AI_MCTS.py) - AI player with pure MCTS.
   - [MonteCarloTreeNode.py](Omega_Gomoku_AI/AI/MonteCarloTreeNode.py) - Base class for nodes in Monte Carlo Tree.
 
 ## Enjoy...
